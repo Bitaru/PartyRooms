@@ -1,4 +1,7 @@
-const bluebird = require('bluebird');
+import bluebird from 'bluebird';
+import { session, ME, createRoom } from './background/api';
+import getStream from './background/getStream';
+
 global.Promise = bluebird;
 
 function promisifier(method) {
@@ -24,9 +27,15 @@ promisifyAll(chrome, [
   'contextMenus'
 ]);
 promisifyAll(chrome.storage, [
-  'local',
+  'local'
 ]);
 
-require('./background/contextMenus');
 require('./background/inject');
-require('./background/badge');
+
+chrome.runtime.onMessage.addListener(async (req, sender, res) => {
+  if (req.type === 'createStream') {
+    const stream = await getStream();
+    createRoom(stream);
+    res({ status: true });
+  }
+});
