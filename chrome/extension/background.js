@@ -1,5 +1,5 @@
 import bluebird from 'bluebird';
-import { createRoom, listen } from './background/api';
+import { stream, listen } from './background/api';
 import getStream from './background/getStream';
 
 global.Promise = bluebird;
@@ -20,27 +20,31 @@ function promisifyAll(obj, list) {
 }
 
 // let chrome extension api support Promise
-promisifyAll(chrome, [
-  'tabs',
-  'windows',
-  'browserAction',
-  'contextMenus'
-]);
-promisifyAll(chrome.storage, [
-  'local'
-]);
+// promisifyAll(chrome, [
+//   'tabs',
+//   'windows',
+//   'browserAction',
+//   'contextMenus'
+// ]);
+// promisifyAll(chrome.storage, [
+//   'local'
+// ]);
 
-require('./background/inject');
+// require('./background/inject');
 
-chrome.runtime.onMessage.addListener(async (req, sender, res) => {
-  if (req.type === 'createStream') {
-    const stream = await getStream();
-    createRoom(stream);
-    res({ status: true });
-  }
+if (chrome.tabs) {
+  chrome.runtime.onMessage.addListener(async (req, sender, res) => {
+    if (req.type === 'createStream') {
+      const audioStream = await getStream();
+      stream(audioStream);
+      res({ status: true });
+    }
 
-  if (req.type === 'listenStream') {
-    listen(req.id);
-    res({ status: true });
-  }
-});
+    if (req.type === 'listenStream') {
+      listen(req.id);
+      res({ status: true });
+    }
+  });
+}
+
+window.listen = listen;

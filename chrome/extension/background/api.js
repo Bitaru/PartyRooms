@@ -1,7 +1,6 @@
 import Firebase from 'firebase';
 import uuid from 'uuid-js';
-import { create as createPeer } from './peer/peers';
-import setupHandshake, { connectUsers } from './peer/handshake';
+import { handshake, connectToUsers } from './handshake';
 
 const config = {
   apiKey: 'AIzaSyBiAFpWwich67wxfME2x2EOyoFc0e715CU',
@@ -9,37 +8,23 @@ const config = {
 }
 
 export const ME = uuid.create(1).toString();
+export const DB = Firebase.initializeApp(config).database();
 
-const db = Firebase.initializeApp(config).database();
+const connectRoom = roomId => DB.ref(`room/${roomId}`);
 
-// const Session = Parse.Object.extend('Session');
-// const Room = Parse.Object.extend('Room');
-//
-// // Set session for current user
-// export const session = new Session();
-// session.set('name', ME).save();
+const createRoom = async roomId => {
+  await DB.ref(`room/${roomId}/initiator`).set(ME);
+  return connectRoom(roomId);
+};
 
-// const getSocket = (room) => {
-//   const id = room.get('objectId');
-//   const query = new Parse.Query(Room);
-//   // query.equalTo('objectId', id);
-//   return query.subscribe();
-// };
-
-export const createRoom = stream => {
+export const stream = async stream => {
   const ROOM_ID = uuid.create(1).toString();
-  db.ref('room').set({ [ROOM_ID]: { initiator: ME } });
-  const room = db.ref(`room/${ROOM_ID}`);
-  setupHandshake(ROOM_ID, room);
-  createPeer(room, ME, stream, true);
+  const room = await createRoom(ROOM_ID);
+  handshake({ room, user: { id: ME }, stream });
+  alert(ROOM_ID);
 };
 
 export const listen = ROOM_ID => {
-  const room = db.ref(`room/${ROOM_ID}`);
-  setupHandshake(ROOM_ID, room);
-  room.child('users').on('value', res => {
-    connectUsers(room, res);
-    createPeer(room, ME);
-  });
-  // connectUsers(room, )
+  const room = connectRoom(ROOM_ID);
+  handshake({ room, user: { id: ME }  });
 };
