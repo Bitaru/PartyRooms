@@ -9,9 +9,8 @@ let peers = {};
  * @param {MediaStream} [stream]
  */
 
-export function create(room, session, stream = false, initiator = false) {
+export function create(room, userId, stream = void 0, initiator = false) {
   console.log('Connecting to peer...');
-  const userId = session.get('name');
 
   if (peers[userId]) {
     destroy(userId);
@@ -40,9 +39,7 @@ export function create(room, session, stream = false, initiator = false) {
 
   peer.on('signal', signal => {
     console.log('peer: %s, signal: %o', userId, signal);
-
-    const payload = { userId, signal };
-    console.log(payload);
+    room.child(`users/${userId}`).set({ userId, signal });
   });
 
   peer.once('connect', () => {

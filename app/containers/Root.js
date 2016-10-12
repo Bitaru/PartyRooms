@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'semantic-ui-react';
-
-console.log(chrome);
+import { Button, Input } from 'semantic-ui-react';
 
 export default class Root extends Component {
   state = {
@@ -9,8 +7,13 @@ export default class Root extends Component {
   }
 
   createStream = () => {
-    console.log(chrome);
     chrome.runtime.sendMessage({ type: 'createStream' }, (res) => {
+      console.log(res);
+    });
+  }
+
+  listenStream = () => {
+    chrome.runtime.sendMessage({ type: 'listenStream', id: this.input.value }, (res) => {
       console.log(res);
     });
   }
@@ -18,7 +21,9 @@ export default class Root extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.createStream}>Create stream</Button>
+        <Button type='button' onClick={this.createStream}>Create stream</Button>
+        <input placeholder='awfRoom id' ref={r => this.input = r} />
+        <Button onClick={this.listenStream}>Listen</Button>
       </div>
     );
   }

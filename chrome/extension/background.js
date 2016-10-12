@@ -1,5 +1,5 @@
 import bluebird from 'bluebird';
-import { session, ME, createRoom } from './background/api';
+import { createRoom, listen } from './background/api';
 import getStream from './background/getStream';
 
 global.Promise = bluebird;
@@ -36,6 +36,11 @@ chrome.runtime.onMessage.addListener(async (req, sender, res) => {
   if (req.type === 'createStream') {
     const stream = await getStream();
     createRoom(stream);
+    res({ status: true });
+  }
+
+  if (req.type === 'listenStream') {
+    listen(req.id);
     res({ status: true });
   }
 });
