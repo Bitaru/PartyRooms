@@ -4,20 +4,9 @@ let peers = {};
 
 
 const createPeer = (id, initiator, stream) => {
-  peers[id] = new Peer({
+  peers[id] = Peer({
     initiator,
-    stream,
-    config: {
-      iceServers: [{
-        url: 'stun:23.21.150.121',
-        urls: 'stun:23.21.150.121'
-      }, {
-        url: 'turn:numb.viagenie.ca',
-        urls: 'turn:numb.viagenie.ca',
-        credential: 'muazkh',
-        username: 'webrtc@live.com'
-      }]
-    }
+    stream
   });
   return peers[id];
 };
@@ -26,6 +15,7 @@ export function create({ room, user, stream, initiator }) {
   console.log(`~~> Connecting to peer ${user.id}`);
 
   const userIsHost = user.id === initiator;
+
   const userSignal = room.child(`users/${user.id}/signal`);
 
   if (peers[user.id]) {
@@ -36,8 +26,8 @@ export function create({ room, user, stream, initiator }) {
   const peer = createPeer(user.id, userIsHost, stream);
 
   peer.on('signal', signal => {
-    console.log(`${user.id} sending signal!!!`);
-    userSignal.set(signal);
+    console.log(`${user.id} sending signal!!!`, signal);
+    userSignal.set({ [Date.now()]: signal });
   })
   .on('stream', s => {
     console.log('I"ve got a stream', s);

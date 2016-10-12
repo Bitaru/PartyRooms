@@ -1,4 +1,5 @@
 import * as peers from './peers.js';
+import diff from 'lodash/difference';
 
 
 let roomSize = 0;
@@ -33,10 +34,12 @@ export const handshake = ({ room, user, stream }) => {
   });
 
   room.child('users').on('child_changed', payload => {
-    const { id, signal } = payload.val();
+    const signals = payload.child('signal').val();
+    const id = payload.key;
+    const signal = signals[Object.keys(signals).sort().reverse()[0]];
     const peer = peers.get(id);
-    console.log('I got signal from ', id, signal);
     if (!peer || !signal || id === user.id) return;
+    console.log('I got signal from ', id, signal);
     peer.signal(signal);
   });
 
