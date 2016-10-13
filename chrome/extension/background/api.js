@@ -3,7 +3,7 @@ import uuid from 'uuid-js';
 import { handshake, connectToUsers } from './handshake';
 import IO from 'socket.io-client';
 
-const socket = IO.connect('http://localhost:3003', { port: 3003 });
+const socket = IO.connect('https://fathomless-spire-79427.herokuapp.com');
 
 const config = {
   apiKey: 'AIzaSyBiAFpWwich67wxfME2x2EOyoFc0e715CU',
