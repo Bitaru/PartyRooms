@@ -14,6 +14,8 @@ const createPeer = (id, initiator, stream) => {
 export function create({ socket, room, user, stream, initiator }) {
   console.log(`~~> Connecting to peer ${user.id}`);
 
+  console.log(stream);
+
   const userSignal = room.child(`users/${user.id}/signal`);
   const isInitiator = initiator === user.id;
 
@@ -25,7 +27,7 @@ export function create({ socket, room, user, stream, initiator }) {
     destroy(user.id);
   }
 
-  const peer = createPeer(user.id, !isInitiator, isInitiator ? stream : void 0);
+  const peer = createPeer(user.id, !isInitiator, stream);
 
   peer.on('signal', signal => {
     console.log(`${user.id} sending signal!!!`, signal);
