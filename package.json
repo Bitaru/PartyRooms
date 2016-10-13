@@ -55,6 +55,7 @@
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-prefer-object-spread": "1.1.0",
     "eslint-plugin-react": "5.2.2",
+    "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "jade": "^1.11.0",
     "jsdom": "^9.6.0",
@@ -66,10 +67,11 @@
     "selenium-webdriver": "^3.0.0-beta-3",
     "shelljs": "^0.7.4",
     "sinon": "^1.17.6",
+    "socket.io": "^1.5.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
-    "webpack-httpolyglot-server": "^0.2.0",
-    "webpack-hot-middleware": "^2.13.0"
+    "webpack-hot-middleware": "^2.13.0",
+    "webpack-httpolyglot-server": "^0.2.0"
   },
   "dependencies": {
     "bluebird": "^3.4.6",

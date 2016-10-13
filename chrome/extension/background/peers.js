@@ -11,23 +11,25 @@ const createPeer = (id, initiator, stream) => {
   return peers[id];
 };
 
-export function create({ room, user, stream, initiator }) {
+export function create({ socket, room, user, stream, initiator }) {
   console.log(`~~> Connecting to peer ${user.id}`);
 
-  const userIsHost = user.id === initiator;
-
   const userSignal = room.child(`users/${user.id}/signal`);
+  const isInitiator = initiator === user.id;
+
+  console.log(initiator, user.id);
+  console.log('CHECK', user.id, isInitiator);
 
   if (peers[user.id]) {
     console.warn(`!~~> Peer ${user.id} already exist, removing from list`);
     destroy(user.id);
   }
 
-  const peer = createPeer(user.id, userIsHost, stream);
+  const peer = createPeer(user.id, !isInitiator, isInitiator ? stream : void 0);
 
   peer.on('signal', signal => {
     console.log(`${user.id} sending signal!!!`, signal);
-    userSignal.set({ [Date.now()]: signal });
+    socket.emit('signal', { userId: user.id, signal });
   })
   .on('stream', s => {
     console.log('I"ve got a stream', s);
