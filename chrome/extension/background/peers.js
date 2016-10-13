@@ -6,7 +6,7 @@ let audio = void 0;
 
 const createPeer = (id, initiator, stream) => {
   peers[id] = Peer({
-    initiator,
+    initiator: initiator === id,
     stream,
     config: {
       iceServers: [{
@@ -26,20 +26,12 @@ const createPeer = (id, initiator, stream) => {
 export function create({ socket, room, user, stream, initiator }) {
   console.log(`~~> Connecting to peer ${user.id}`);
 
-  console.log(stream);
-
-  const userSignal = room.child(`users/${user.id}/signal`);
-  const isInitiator = initiator === user.id;
-
-  console.log(initiator, user.id);
-  console.log('CHECK', user.id, isInitiator);
-
   if (peers[user.id]) {
     console.warn(`!~~> Peer ${user.id} already exist, removing from list`);
     destroy(user.id);
   }
 
-  const peer = createPeer(user.id, !isInitiator, stream);
+  const peer = createPeer(user.id, initiator, stream);
 
   peer.on('signal', signal => {
     console.log(`${user.id} sending signal!!!`, signal);
@@ -59,7 +51,7 @@ export function create({ socket, room, user, stream, initiator }) {
     destroy(user.id);
   })
   .once('close', () => {
-    console.warn(`XXX Peer ${user.id} connection closed XXX`);
+    console.warn(`X_X Peer ${user.id} has close connection`);
     if (peers[user.id] === peer) delete peers[user.id];
   });
 }
