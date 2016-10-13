@@ -14,8 +14,6 @@ import getStream from './background/getStream';
 
 // require('./background/inject');
 
-const chrome = chrome || {};
-
 if (chrome && chrome.tabs) {
   chrome.runtime.onMessage.addListener(async (req, sender, res) => {
     if (req.type === 'createStream') {
