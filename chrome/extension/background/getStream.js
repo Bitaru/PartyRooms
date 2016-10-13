@@ -1,4 +1,4 @@
-const injectAudio = stream => {
+export const injectAudio = stream => {
   const audio = new Audio(window.URL.createObjectURL(stream));
   audio.play();
   return stream;

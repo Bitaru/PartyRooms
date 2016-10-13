@@ -1,12 +1,24 @@
 import Peer from 'simple-peer';
+import { injectAudio } from './getStream';
 
 let peers = {};
-
+let audio = void 0;
 
 const createPeer = (id, initiator, stream) => {
   peers[id] = Peer({
     initiator,
-    stream
+    stream,
+    config: {
+      iceServers: [{
+        url: 'stun:23.21.150.121',
+        urls: 'stun:23.21.150.121'
+      }, {
+        url: 'turn:numb.viagenie.ca',
+        urls: 'turn:numb.viagenie.ca',
+        credential: 'muazkh',
+        username: 'webrtc@live.com'
+      }]
+    }
   });
   return peers[id];
 };
@@ -35,9 +47,12 @@ export function create({ socket, room, user, stream, initiator }) {
   })
   .on('stream', s => {
     console.log('I"ve got a stream', s);
+    const url = window.URL.createObjectURL(s)
+    audio = new Audio(url);
   })
   .once('connect', () => {
     console.log(`^___^ Peer ${user.id} is connected now!`);
+    if (audio) audio.play();
   })
   .once('error', error => {
     console.warn('!~~> A peer connection error occurred', error);
