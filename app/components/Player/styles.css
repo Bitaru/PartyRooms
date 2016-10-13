@@ -1,0 +1,67 @@
+.wrap{
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.controlls{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionButton{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid color(#333 a(10%));
+  box-shadow: 0 0 0 color(#333 a(0%));
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: box-shadow .1s ease-in-out;
+  & svg{
+    opacity: .5;
+    width: 80%;
+    height: 80%;
+  }
+  &:hover{
+    box-shadow: 0 1px 2px color(#333 a(20%));
+  }
+}
+
+.playIcon{
+  margin-left: 8px;
+}
+.play{
+  margin-right: 52px;
+
+}
+.record{
+  width: 45px;
+  height: 45px;
+  margin-right: -8px;
+  fill: #E64B44;
+}
+
+.volume{
+  width: 80px;
+  padding-left: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.volumeIcon{
+  width: 20px;
+  height: 20px;
+  opacity: .4;
+}
+.sliderWrap{
+  width: 55px;
+}

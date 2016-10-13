@@ -26,5 +26,5 @@
     "storage",
      "tabCapture"
    ],
-  "content_security_policy": "default-src 'self' https://*.firebaseio.com; script-src 'self' https://*.firebaseio.com http://localhost:3003 http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src ws://fathomless-spire-79427.herokuapp.com http://fathomless-spire-79427.herokuapp.com wss://*.firebaseio.com https://*.firebaseio.com http://localhost:3003 ws://localhost:3003 http://localhost:3000 https://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:;"
+  "content_security_policy": "default-src 'self' https://fonts.gstatic.com https://*.firebaseio.com; script-src 'self' https://*.firebaseio.com http://localhost:3003 http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src ws://fathomless-spire-79427.herokuapp.com http://fathomless-spire-79427.herokuapp.com wss://*.firebaseio.com https://*.firebaseio.com http://localhost:3003 ws://localhost:3003 http://localhost:3000 https://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:;"
 }

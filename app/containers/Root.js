@@ -1,30 +1,18 @@
-import React, { Component, PropTypes } from 'react';
-import { Button, Input } from 'semantic-ui-react';
+import { compose } from 'recompose';
 
-export default class Root extends Component {
-  state = {
-    streming: false
-  }
+import 'normalize.css';
+import styles from './Root.css';
 
-  createStream = () => {
-    chrome.runtime.sendMessage({ type: 'createStream' }, (res) => {
-      console.log(res);
-    });
-  }
+import Player from '../components/Player';
+import List from '../components/List';
+import Search from '../components/Search';
 
-  listenStream = () => {
-    chrome.runtime.sendMessage({ type: 'listenStream', id: this.input.value }, (res) => {
-      console.log(res);
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <Button type='button' onClick={this.createStream}>Create stream</Button>
-        <input placeholder='awfRoom id' ref={r => this.input = r} />
-        <Button onClick={this.listenStream}>Listen</Button>
-      </div>
-    );
-  }
-}
+export default props => {
+  return (
+    <div className={styles.container}>
+      <Search />
+      <List />
+      <Player />
+    </div>
+  );
+};

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const customPath = path.join(__dirname, './customPublicPath');
+const postcss = require('./postcss');
 
 module.exports = {
   entry: {
@@ -16,6 +17,9 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.IgnorePlugin(/[^/]+\/[\S]+.dev$/),
     new webpack.optimize.DedupePlugin(),
+    new webpack.ProvidePlugin({
+      React: 'react'
+    }),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       compressor: {
@@ -31,6 +35,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js']
   },
+  postcss,
   module: {
     loaders: [{
       test: /\.js$/,

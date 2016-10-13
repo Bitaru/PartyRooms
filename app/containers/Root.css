@@ -1,0 +1,19 @@
+html, body{
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+
+body {
+  max-height: 300px;
+}
+
+.container{
+  position: relative;
+  width: 100%;
+  max-height: 300px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: stretch;
+}

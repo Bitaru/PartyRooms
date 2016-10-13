@@ -1,0 +1,76 @@
+.wrap{
+  height: 40px;
+  position: relative;
+  background: white;
+  &:after{
+    content: ' ';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    transition: backgrouns .3s ease-in-out;
+    background: linear-gradient(to right, color(#333 a(0%)) 0%, color(#333 a(30%)) 50%, color(#333 a(0%)) 100%);
+  }
+  &.active:after{
+    background: linear-gradient(to right, color(#333 a(0%)) 0%, color(#333 a(50%)) 50%, color(#333 a(0%)) 100%);
+  }
+}
+
+.input{
+  background: transparent;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  padding: 6px 50px 6px 50px;
+  color: color(#333 a(90%));
+  outline: none;
+  line-height: 22px;
+  border: none;
+  :placeholder{
+    font-weight: 200;
+    color: color(#333 a(30%));
+  }
+}
+
+.icon, .crossIcon{
+  width: 22px;
+  height: 22px;
+  fill: color(#333 a(30%));
+  transition: fill .1s ease-in-out;
+}
+
+.icon{
+  top: 8px;
+  left: 15px;
+  position: absolute;
+  z-index: 1;
+  &.active{
+    fill: color(#333 a(90%));
+  }
+}
+
+.cross{
+  position: absolute;
+  z-index: 3;
+  right: 15px;
+  top: 0;
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  & .crossIcon{
+    width: 18px;
+    height: 18px;
+  }
+  &:hover .crossIcon{
+    fill: color(#E64B44 a(100%));
+  }
+}

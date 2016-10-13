@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const postcss = require('./postcss');
 
 const host = 'localhost';
 const port = 3000;
@@ -31,6 +32,9 @@ const baseDevConfig = () => ({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.IgnorePlugin(/[^/]+\/[\S]+.prod$/),
+    new webpack.ProvidePlugin({
+      React: 'react'
+    }),
     new webpack.DefinePlugin({
       __HOST__: `'${host}'`,
       __PORT__: port,
@@ -42,6 +46,7 @@ const baseDevConfig = () => ({
   resolve: {
     extensions: ['', '.js']
   },
+  postcss,
   module: {
     loaders: [{
       test: /\.js$/,
