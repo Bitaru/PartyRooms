@@ -1,8 +1,11 @@
 import Room from './Room';
+import Events from '../../../app/lib/EventBus';
 
 class AudioPlayer {
   constructor() {
     this.Player = new Audio();
+    Events.on('volume', volume => this.setVolume(volume));
+    Events.on('stop', () => this.stop());
   }
 
   setStream(stream) {
@@ -12,16 +15,20 @@ class AudioPlayer {
 
   play() {
     this.Player.play();
+    Events.emit('update', { play: true });
     return this;
   }
 
   stop() {
-    this.Player.stop();
+    console.log('stop')
+    this.Player.pause();
+    Events.emit('update', { status: 0 });
     return this;
   }
 
-  volume(volume) {
+  setVolume(volume) {
     this.Player.volume = volume;
+    Events.emit('update', { volume });
     return this;
   }
 
@@ -33,6 +40,7 @@ class AudioPlayer {
         });
         chrome.tabCapture.capture({ audio: true, video: false }, stream => {
           this.setStream(stream).play();
+          Events.emit('update', { status: 'streaming' });
           resolve(stream);
         });
       });

@@ -2,6 +2,7 @@ import Firebase from 'firebase';
 import uuid from 'uuid-js';
 import handshake from './handshake';
 import socket from './socket';
+import Events from '../../../app/lib/EventBus';
 
 const config = {
   apiKey: 'AIzaSyBiAFpWwich67wxfME2x2EOyoFc0e715CU',
@@ -20,6 +21,7 @@ class Room {
 
   constructor() {
     this.db = Firebase.initializeApp(config).database();
+    Events.on('stop', () => this.disconect());
   }
 
   disconect() {
@@ -45,9 +47,7 @@ class Room {
     this.id = id;
     const room = this.db.ref(`room/${id}/users`)
     room.push(id)
-    .then((something) => {
-      console.log(something);
-    })
+    .then(() => handshake({ room }))
   }
 }
 
