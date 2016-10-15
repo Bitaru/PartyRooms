@@ -1,32 +1,14 @@
-import { stream, listen } from './background/api';
-import getStream from './background/getStream';
+import AudioPlayer from './background/AudioPlayer';
+import Events from '../../app/lib/EventBus';
+import Room from './background/Room';
 
-// let chrome extension api support Promise
-// promisifyAll(chrome, [
-//   'tabs',
-//   'windows',
-//   'browserAction',
-//   'contextMenus'
-// ]);
-// promisifyAll(chrome.storage, [
-//   'local'
-// ]);
+Events.on('createRoom', async props => {
+  const stream = await AudioPlayer.capture();
+  Room.create({ ...props, stream });
+});
 
-// require('./background/inject');
+Events.on('joinRoom', props => {
+  Room.join(props);
+});
 
-if (chrome && chrome.tabs) {
-  chrome.runtime.onMessage.addListener(async (req, sender, res) => {
-    if (req.type === 'createStream') {
-      const audioStream = await getStream();
-      stream(audioStream);
-      res({ status: true });
-    }
-
-    if (req.type === 'listenStream') {
-      listen(req.id);
-      res({ status: true });
-    }
-  });
-}
-
-window.listen = listen;
+window.listen = Room.join;

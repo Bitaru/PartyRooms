@@ -4,12 +4,13 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  padding: 0 15px;
 }
 
 .controlls{
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-grow: 2;
 }
 
 .actionButton{
@@ -51,17 +52,21 @@
 }
 
 .volume{
-  width: 80px;
-  padding-left: 15px;
+  flex-grow: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 .volumeIcon{
   width: 20px;
   height: 20px;
   opacity: .4;
+  padding-right: 10px;
 }
+
 .sliderWrap{
   width: 55px;
+}
+
+.settings{
+  flex-grow: 1;
 }

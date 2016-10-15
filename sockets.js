@@ -10,8 +10,6 @@ const io = require('socket.io').listen(http);
 
 const ifaces = os.networkInterfaces();
 
-const rooms = {};
-
 function getUsers(roomName) {
   return map(io.sockets.adapter.rooms[roomName].sockets, (_, id) => {
     return {
@@ -19,10 +17,6 @@ function getUsers(roomName) {
     };
   });
 }
-
-app.get('/', function(req, res){
-  res.send(`<h1>Hi, port is ${PORT}</h1>`);
-});
 
 io.on('connection', socket => {
   socket.on('signal', payload => {
@@ -32,23 +26,26 @@ io.on('connection', socket => {
     });
   });
 
+  socket.on('close', roomId => {
+    io.to(roomId).emit('close');
+  });
+
+  socket.on('leaving', () => {
+    if (socket.room) socket.leave(socket.room);
+  });
+
   socket.on('ready', payload => {
-    const room = payload.room
-    const initiator = payload.initiator;
+    const room = payload.room;
     if (socket.room) socket.leave(socket.room);
     socket.room = room;
     socket.join(room);
     socket.room = room;
-    if (initiator) {
-      rooms[room] = socket.id;
-    }
 
     io.to(room).emit('users', {
-      initiator: rooms[room],
+      initiator: socket.id,
       users: getUsers(room)
     });
   });
 });
 
-console.log(PORT);
 http.listen(PORT);

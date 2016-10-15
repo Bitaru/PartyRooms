@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import Root from '../../app/containers/Root';
+import createStore from '../../app/store/createStore';
 
-chrome.storage.local.get('state', obj => {
-  ReactDOM.render(
-    <Root />,
-    document.querySelector('#root')
-  );
-});
+const store = createStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Root />
+  </Provider>,
+  document.querySelector('#root')
+);

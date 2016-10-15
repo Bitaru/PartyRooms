@@ -6,7 +6,7 @@
     position: absolute;
     right: 0;
     height: 10px;
-    width: 2px;
+    width: 1px;
     background-color: color(#333 a(10%));
     top: -3px;
   }
