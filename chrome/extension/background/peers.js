@@ -1,11 +1,11 @@
 import Peer from 'simple-peer';
-import { injectAudio } from './getStream';
+import socket from './socket';
+import AudioPlayer from './AudioPlayer';
 
 let peers = {};
-let audio = void 0;
 
 const createPeer = (id, initiator, stream) => {
-  peers[id] = Peer({
+  peers[id] = new Peer({
     initiator: initiator === id,
     stream,
     config: {
@@ -23,7 +23,7 @@ const createPeer = (id, initiator, stream) => {
   return peers[id];
 };
 
-export function create({ socket, room, user, stream, initiator }) {
+export function create({ user, stream, initiator }) {
   console.log(`~~> Connecting to peer ${user.id}`);
 
   if (peers[user.id]) {
@@ -39,12 +39,11 @@ export function create({ socket, room, user, stream, initiator }) {
   })
   .on('stream', s => {
     console.log('I"ve got a stream', s);
-    const url = window.URL.createObjectURL(s)
-    audio = new Audio(url);
+    AudioPlayer.setStream(s);
   })
   .once('connect', () => {
     console.log(`^___^ Peer ${user.id} is connected now!`);
-    if (audio) audio.play();
+    AudioPlayer.play();
   })
   .once('error', error => {
     console.warn('!~~> A peer connection error occurred', error);
@@ -76,4 +75,8 @@ export function destroy(userId) {
   const peer = peers[userId];
   peer.destroy();
   delete peers[userId];
+}
+
+export function destroyAll() {
+  getIds().forEach(destroy);
 }

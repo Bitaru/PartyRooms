@@ -1,12 +1,13 @@
+import socket from './socket';
 import * as peers from './peers.js';
 
-export const handshake = ({ socket, room, user, stream }) => {
-  function connectUsers({ room, users, initiator}) {
+export default ({ room, stream }) => {
+  function connectUsers({ room, users, initiator }) {
     console.log('~~> Connected users: ', users);
-    
+
     users
     .filter(user => !peers.get(user.id))
-    .forEach(user => peers.create({ room, user, initiator, stream, socket }));
+    .forEach(user => peers.create({ room, user, initiator, stream }));
 
     peers.getIds()
     .filter(id => users.includes(id))
@@ -23,6 +24,13 @@ export const handshake = ({ socket, room, user, stream }) => {
     if (!peer || userId === socket.id) return;
     console.log('I got signal from ', userId, signal);
     peer.signal(signal);
+  });
+
+  socket.on('close', () => {
+    console.warn('X_X disconecting all room');
+    socket.emit('leaving');
+    peers.destroyAll();
+    socket.removeAllListeners();
   });
 
   socket.emit('ready', { room: room.key });

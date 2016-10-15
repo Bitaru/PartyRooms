@@ -2,6 +2,7 @@ import styles from './styles.css';
 import cx from 'classnames';
 import Rheostat from 'rheostat';
 import { compose, withState, withHandlers } from 'recompose';
+import Events from '../../lib/EventBus';
 
 import './sliderStyles.css';
 
@@ -14,9 +15,12 @@ export default compose(
   withHandlers({
     updateVolume: props => value => {
       props.setVolume(value);
+    },
+    onRecord: props => e => {
+      Events.emit('createRoom', { name: 'Oresama', tags: 'Jrock, Jpop, Ambient' })
     }
   })
-)(() => (
+)(({ onRecord }) => (
   <div className={styles.wrap}>
     <div className={styles.volume}>
       <VolumeIcon className={styles.volumeIcon} />
@@ -25,13 +29,15 @@ export default compose(
       </div>
     </div>
     <div className={styles.controlls}>
-      <button className={cx(styles.actionButton, styles.record)}>
+      <button onClick={onRecord} className={cx(styles.actionButton, styles.record)}>
         <RecordIcon className={cx(styles.recordIcon)} />
       </button>
       <button className={cx(styles.actionButton, styles.play)}>
         <PlayIcon className={cx(styles.playIcon)} />
       </button>
     </div>
-    <div className={styles.settings} />
+    <div className={styles.settings}>
+      <div />
+    </div>
   </div>
 ));
