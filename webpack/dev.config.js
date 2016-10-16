@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const postcss = require('./postcss');
+const config = require('../config.json');
 
 const host = 'localhost';
 const port = 3000;
@@ -38,6 +39,7 @@ const baseDevConfig = () => ({
     new webpack.DefinePlugin({
       __HOST__: `'${host}'`,
       __PORT__: port,
+      SETTINGS: JSON.stringify(config),
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       }

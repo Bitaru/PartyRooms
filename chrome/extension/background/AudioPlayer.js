@@ -9,7 +9,8 @@ class AudioPlayer {
   }
 
   setStream(stream) {
-    this.Player.src = window.URL.createObjectURL(stream);
+    this.stream = stream;
+    this.Player.src = window.URL.createObjectURL(this.stream);
     return this;
   }
 
@@ -20,9 +21,8 @@ class AudioPlayer {
   }
 
   stop() {
-    console.log('stop')
-    this.Player.pause();
-    Events.emit('update', { status: 0 });
+    this.stream.getTracks()[0].stop();
+    Events.emit('update', { status: 0, play: false });
     return this;
   }
 

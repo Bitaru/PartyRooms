@@ -1,5 +1,7 @@
 node_modules
 npm-debug.log
+config.json
+.vscode
 .DS_Store
 
 build/

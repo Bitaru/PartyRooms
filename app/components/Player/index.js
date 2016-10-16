@@ -2,7 +2,7 @@ import styles from './styles.css';
 import cx from 'classnames';
 import Rheostat from 'rheostat';
 import { connect } from 'react-redux';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withState, withHandlers, lifecycle } from 'recompose';
 import Events from '../../lib/EventBus';
 
 import './sliderStyles.css';
@@ -21,6 +21,11 @@ export default compose(
       Events.emit('createRoom', { name: 'Oresama', tags: 'Jrock, Jpop, Ambient' }),
     bigButtonAction: ({ status }) => () =>
       !!status ? Events.emit('stop') : () => {}
+  }),
+  lifecycle({
+    componentWillMount() {
+      Events.emit('volume', this.props.volume);
+    }
   })
 )(({ onRecord, updateVolume, volume, status, bigButtonAction }) => (
   <div className={styles.wrap}>
