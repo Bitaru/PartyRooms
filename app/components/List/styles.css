@@ -1,3 +1,42 @@
 .wrap{
   height: 300px;
+  overflow: hidden;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+}
+.noRooms{
+  margin: 0;
+  list-style: none;
+  padding-top: 30px;
+  color: color(#333 a(70%));
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+.room{
+  margin: 0;
+  padding: 0;
+  height: 70px;
+  display: flex;
+  border-bottom: 1px solid color(#333 a(10%));
+}
+
+.avatar{
+  height: 70px;
+  width: 70px;
+  background-position: center;
+  background-size: cover;
+}
+
+.body{
+  padding-left: 15px;
+  overflow-x: hidden;
+  max-width: 230px;
+  box-sizing: border-box;
+  h3, p{
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }

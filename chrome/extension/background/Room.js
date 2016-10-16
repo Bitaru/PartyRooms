@@ -21,11 +21,12 @@ class Room {
 
   mapRooms(snapshot) {
     const response = snapshot.val() || {};
-    return Object.keys(response).reduce((acc, id) => {
-      if (this.isOwner && id === ME) return acc;
-      acc.push({ ...response[id], id });
-      return acc;
-    }, []);
+    return Object.keys(response).map(key => ({
+      ...response[key],
+      id: key,
+      isOwner: ME === key,
+      isListener: key === this.id
+    }));
   }
 
   bindRoomsUpdate = (type) => {
