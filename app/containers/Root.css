@@ -4,13 +4,13 @@ html, body{
 }
 
 body {
-  max-height: 300px;
+  max-height: 400px;
 }
 
 .container{
   position: relative;
   width: 100%;
-  max-height: 300px;
+  max-height: 400px;
   overflow: hidden;
   display: flex;
   flex-direction: column;

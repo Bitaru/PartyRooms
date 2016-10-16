@@ -6,7 +6,6 @@ const initialState = {
 export default (state = initialState, { type, data, key }) => {
   switch (type) {
     case 'update':
-      console.log(data)
       return { ...state, ...data };
     case 'insert':
       return { ...state, [key]: data };

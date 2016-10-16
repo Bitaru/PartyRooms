@@ -50,6 +50,10 @@ module.exports = {
         'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         'postcss'
       ]
-    }]
+    }, {
+      test: /\.(jpg|png|gif)$/,
+      loaders: ['url-loader?limit=100000']
+    }
+  ]
   }
 };

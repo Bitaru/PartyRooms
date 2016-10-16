@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { autoRehydrate, persistStore } from 'redux-persist';
+import { reduxFormReducer as form } from 'redux-form';
 import thunk from 'redux-thunk';
 import reducer from './reducer';
 import storage from './chromeStore';

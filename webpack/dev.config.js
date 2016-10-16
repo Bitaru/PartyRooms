@@ -43,7 +43,7 @@ const baseDevConfig = () => ({
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       }
-    })
+    }),
   ],
   resolve: {
     extensions: ['', '.js']
@@ -64,7 +64,11 @@ const baseDevConfig = () => ({
         'css?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         'postcss'
       ]
-    }]
+    }, {
+      test: /\.(jpg|png|gif)$/,
+      loaders: ['url-loader?limit=100000']
+    }
+  ]
   }
 });
 

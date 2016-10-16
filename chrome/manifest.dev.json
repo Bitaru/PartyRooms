@@ -12,8 +12,14 @@
     "48": "img/icon-48-green.png",
     "128": "img/icon-128-green.png"
   },
-  "web_accessible_resources": [
-    "inject.html"
+  "content_scripts": [
+    {
+      "matches": [
+        "http://vk.com/*",
+        "https://vk.com/*"
+      ],
+      "js": ["vk.js"]
+    }
   ],
   "background": {
     "page": "background.html"
@@ -21,7 +27,7 @@
   "permissions": [
     "http://*/*",
     "https://*/*",
-    "contextMenus",
+    "activeTab",
     "tabs",
     "storage",
      "tabCapture"

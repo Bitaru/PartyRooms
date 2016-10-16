@@ -21,7 +21,7 @@
   "permissions": [
     "http://*/*",
     "https://*/*",
-    "contextMenus",
+    "activeTab",
     "tabs",
     "storage",
      "tabCapture"
