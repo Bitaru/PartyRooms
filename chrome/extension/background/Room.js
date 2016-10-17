@@ -19,14 +19,18 @@ class Room {
     return this.id === ME;
   }
 
-  mapRooms(snapshot) {
-    const response = snapshot.val() || {};
-    return Object.keys(response).map(key => ({
-      ...response[key],
+  normalizeRooms() {
+    return Object.keys(this.rooms).map(key => ({
+      ...this.rooms[key],
       id: key,
       isOwner: ME === key,
-      isListener: key === this.id
+      isListener: ME !== key && key === this.id
     }));
+  }
+
+  mapRooms(snapshot) {
+    this.rooms = snapshot.val() || {};
+    return this.normalizeRooms();
   }
 
   bindRoomsUpdate = (type) => {
@@ -44,13 +48,13 @@ class Room {
   }
 
   disconect() {
-    Events.emit('update', { room: 0 });
     if (!this.id) return;
     if (this.id === ME) {
       this.roomsRef.child(ME).remove();
       socket.emit('close', this.id);
     }
     this.id = void 0;
+    Events.emit('update', { room: 0, status: 0, rooms: this.normalizeRooms() });
   }
 
   connect() {
@@ -71,6 +75,7 @@ class Room {
     this.disconect();
     this.id = id;
     this.connect();
+    Events.emit('update', { room: this.id, status: 'listening' });
 
     const room = this.db.ref(`room/${id}/users`);
     room.push(id)
