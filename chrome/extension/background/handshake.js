@@ -2,6 +2,7 @@ import socket from './socket';
 import * as peers from './peers.js';
 
 export default ({ room, stream }) => {
+  console.log(room.key)
   function connectUsers({ room, users, initiator }) {
     console.log('~~> Connected users: ', users);
 

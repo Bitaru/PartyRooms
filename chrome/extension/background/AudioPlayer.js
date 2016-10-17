@@ -22,10 +22,14 @@ class AudioPlayer {
 
   stop() {
     Events.emit('update', { status: 0, play: false });
-    try {
-      this.stream.getTracks()[0].stop();
-    } catch (e) {
-      console.warn('Oooooops, no sound stream found');
+    if (!Room.isOwner) {
+      this.Player.pause();
+    } else {
+      try {
+        this.stream.getTracks()[0].stop();
+      } catch (e) {
+        console.warn('Oooooops, no sound stream found');
+      }
     }
     return this;
   }

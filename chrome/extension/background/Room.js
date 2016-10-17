@@ -77,8 +77,8 @@ class Room {
     this.connect();
     Events.emit('update', { room: this.id, status: 'listening' });
 
-    const room = this.db.ref(`room/${id}/users`);
-    room.push(id)
+    const room = this.db.ref(`room/${id}`);
+    room.child('users').push(id)
     .then(() => handshake({ room }));
   }
 }

@@ -7,18 +7,7 @@ let peers = {};
 const createPeer = (id, initiator, stream) => {
   peers[id] = new Peer({
     initiator: initiator === id,
-    stream,
-    config: {
-      iceServers: [{
-        url: 'stun:23.21.150.121',
-        urls: 'stun:23.21.150.121'
-      }, {
-        url: 'turn:numb.viagenie.ca',
-        urls: 'turn:numb.viagenie.ca',
-        credential: 'muazkh',
-        username: 'webrtc@live.com'
-      }]
-    }
+    stream
   });
   return peers[id];
 };
