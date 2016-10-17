@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const postcss = require('./postcss');
+const config = require('../config.json');
 
 const host = 'localhost';
 const port = 3000;
@@ -38,10 +39,11 @@ const baseDevConfig = () => ({
     new webpack.DefinePlugin({
       __HOST__: `'${host}'`,
       __PORT__: port,
+      SETTINGS: JSON.stringify(config),
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       }
-    })
+    }),
   ],
   resolve: {
     extensions: ['', '.js']
@@ -62,7 +64,11 @@ const baseDevConfig = () => ({
         'css?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         'postcss'
       ]
-    }]
+    }, {
+      test: /\.(jpg|png|gif)$/,
+      loaders: ['url-loader?limit=100000']
+    }
+  ]
   }
 });
 

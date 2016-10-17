@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const customPath = path.join(__dirname, './customPublicPath');
 const postcss = require('./postcss');
+const config = require('../config.json');
 
 module.exports = {
   entry: {
@@ -27,6 +28,7 @@ module.exports = {
       }
     }),
     new webpack.DefinePlugin({
+      SETTINGS: JSON.stringify(config),
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
@@ -48,6 +50,10 @@ module.exports = {
         'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         'postcss'
       ]
-    }]
+    }, {
+      test: /\.(jpg|png|gif)$/,
+      loaders: ['url-loader?limit=100000']
+    }
+  ]
   }
 };

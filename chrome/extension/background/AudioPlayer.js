@@ -9,7 +9,8 @@ class AudioPlayer {
   }
 
   setStream(stream) {
-    this.Player.src = window.URL.createObjectURL(stream);
+    this.stream = stream;
+    this.Player.src = window.URL.createObjectURL(this.stream);
     return this;
   }
 
@@ -20,9 +21,12 @@ class AudioPlayer {
   }
 
   stop() {
-    console.log('stop')
-    this.Player.pause();
-    Events.emit('update', { status: 0 });
+    Events.emit('update', { status: 0, play: false });
+    try {
+      this.stream.getTracks()[0].stop();
+    } catch (e) {
+      console.warn('Oooooops, no sound stream found');
+    }
     return this;
   }
 

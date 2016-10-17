@@ -81,6 +81,7 @@
     "__ENVIRONMENT__": true,
     "__DEBUG__": true,
     "__VERBOSE__": true,
-    "__PROFILE__": true
+    "__PROFILE__": true,
+    "SETTINGS": true
   }
 }

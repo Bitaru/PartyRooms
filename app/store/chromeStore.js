@@ -10,7 +10,6 @@ export default {
   },
 
   setItem(key, value, cb) {
-    console.log(key, value);
     chrome.storage.local.set({ [key]: value }, () => {
       if (chrome.runtime.lastError) return cb(chrome.runtime.lastError)
       cb(null)
