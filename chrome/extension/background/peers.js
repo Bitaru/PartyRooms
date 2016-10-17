@@ -40,6 +40,7 @@ export function create({ user, stream, initiator }) {
   })
   .once('close', () => {
     console.warn(`X_X Peer ${user.id} has close connection`);
+    socket.emit('close', user.id)
     if (peers[user.id] === peer) delete peers[user.id];
   });
 }

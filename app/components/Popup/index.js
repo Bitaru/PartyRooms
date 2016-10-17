@@ -31,7 +31,7 @@ export default compose(
           <img src={logo} className={styles.logo} role='presentation' />
           <h3>Make a party!</h3>
         </div>
-        <form onSubmit={onSumit}>
+        <form onSubmit={onSumit} autoComplete='off'>
           <input className={styles.input} name='title' type='text' placeholder='Room name' required />
           <textarea className={styles.textarea} name='tags' placeholder='Desctiption or tags' />
           <button type='submit' className={styles.submit}>Create room</button>

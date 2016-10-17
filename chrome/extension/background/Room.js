@@ -3,6 +3,7 @@ import uuid from 'uuid-js';
 import handshake from './handshake';
 import socket from './socket';
 import Events from '../../../app/lib/EventBus';
+import AudioPlayer from './AudioPlayer';
 
 const config = {
   apiKey: SETTINGS.firebase.key,

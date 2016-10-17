@@ -2,6 +2,8 @@ import Room from './Room';
 import Events from '../../../app/lib/EventBus';
 
 class AudioPlayer {
+  streamIsLocal = false;
+
   constructor() {
     this.Player = new Audio();
     Events.on('volume', volume => this.setVolume(volume));
@@ -22,10 +24,11 @@ class AudioPlayer {
 
   stop() {
     Events.emit('update', { status: 0, play: false });
-    if (!Room.isOwner) {
+    if (!this.streamIsLocal) {
       this.Player.pause();
     } else {
       try {
+        this.streamIsLocal = false;
         this.stream.getTracks()[0].stop();
       } catch (e) {
         console.warn('Oooooops, no sound stream found');
@@ -47,6 +50,7 @@ class AudioPlayer {
           if (initialTabId === id) Room.disconect();
         });
         chrome.tabCapture.capture({ audio: true, video: false }, stream => {
+          this.streamIsLocal = true;
           this.setStream(stream).play();
           Events.emit('update', { status: 'streaming' });
           resolve(stream);
