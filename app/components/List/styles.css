@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
 }
+
 .noRooms{
   margin: 0;
   list-style: none;
@@ -19,8 +20,76 @@
   margin: 0;
   padding: 0;
   height: 70px;
+  position: relative;
   display: flex;
   border-bottom: 1px solid color(#333 a(10%));
+}
+
+.overlay{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  .text{
+    position: absolute;
+    right: 15px;
+    top: 17px;
+    color: white;
+    text-transform: uppercase;
+  }
+  .owner &{
+    background: linear-gradient(90deg, color(#E64B44 a(70%)), color(#E64B44 a(30%)));
+    background-size: 400% 100%;
+    animation: Progress 3s ease-in-out infinite;
+  }
+  .listener &{
+    background: linear-gradient(90deg, color(#358EFF a(70%)), color(#358EFF a(30%)));
+    background-size: 400% 100%;
+    animation: Progress 3s ease-in-out infinite;
+  }
+}
+
+.statusWrap, .avaibleOverlay{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color(#333 a(10%));
+}
+
+.statusIcon{
+  border: 2px solid white;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg{
+    width: 25px;
+    height: 25px;
+    fill: white;
+  }
+}
+
+.owner .statusIcon {
+  border-color: #E64B44;
+  svg{
+    fill: #E64B44;
+  }
+}
+
+.listener .statusIcon {
+  border-color: #358EFF;
+  svg{
+    fill: #358EFF;
+  }
 }
 
 .avatar{
@@ -28,6 +97,7 @@
   width: 70px;
   background-position: center;
   background-size: cover;
+  position: relative;
 }
 
 .body{
@@ -39,4 +109,27 @@
     white-space: nowrap;
     overflow: hidden;
   }
+}
+
+.avaibleOverlay{
+  background-color: color(#333 a(80%));
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity .1s ease-in;
+}
+
+.avaible{
+  cursor: pointer;
+}
+
+.avaible:hover .avaibleOverlay{
+  opacity: 1;
+}
+
+@keyframes Progress {
+  0%{background-position:0% 53%}
+  50%{background-position:100% 48%}
+  100%{background-position:0% 53%}
 }
