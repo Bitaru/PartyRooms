@@ -34,5 +34,6 @@ export default ({ room, stream, owner }) => {
     socket.removeAllListeners();
   });
 
+  console.log(owner)
   socket.emit('ready', { room: room.key, owner });
 };

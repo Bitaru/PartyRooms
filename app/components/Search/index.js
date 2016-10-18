@@ -3,11 +3,13 @@ import styles from './styles.css';
 import SearchIcon from '../icons/Search';
 import CrosshIcon from '../icons/cross';
 import cx from 'classnames';
+import Events from '../../lib/EventBus';
 
 export default compose(
   withState('value', 'setValue', ''),
   withHandlers({
     update: props => value => {
+      Events.emit('getRooms', value);
       props.setValue(value);
     }
   }),

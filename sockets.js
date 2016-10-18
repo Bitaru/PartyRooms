@@ -60,4 +60,8 @@ io.on('connection', socket => {
   });
 });
 
-http.listen(PORT);
+http.listen(PORT, function() {
+  Object.keys(ifaces).forEach(ifname =>
+    ifaces[ifname].forEach(iface =>
+      console.log('listening on', iface.address, 'and port', PORT)));
+});
