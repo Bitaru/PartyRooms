@@ -1,8 +1,8 @@
 import socket from './socket';
 import * as peers from './peers.js';
 
-export default ({ room, stream }) => {
-  console.log(room.key)
+export default ({ room, stream, owner }) => {
+
   function connectUsers({ room, users, initiator }) {
     console.log('~~> Connected users: ', users);
 
@@ -34,5 +34,5 @@ export default ({ room, stream }) => {
     socket.removeAllListeners();
   });
 
-  socket.emit('ready', { room: room.key });
+  socket.emit('ready', { room: room.key, owner });
 };

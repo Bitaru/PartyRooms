@@ -8,12 +8,18 @@
     "default_popup": "popup.html"
   },
   "icons": {
-    "16": "img/icon-16.png",
-    "48": "img/icon-48.png",
-    "128": "img/icon-128.png"
+    "16": "img/icon-16-green.png",
+    "48": "img/icon-48-green.png",
+    "128": "img/icon-128-green.png"
   },
-  "web_accessible_resources": [
-    "inject.html"
+  "content_scripts": [
+    {
+      "matches": [
+        "http://vk.com/*",
+        "https://vk.com/*"
+      ],
+      "js": ["vk.js"]
+    }
   ],
   "background": {
     "page": "background.html"
@@ -26,5 +32,5 @@
     "storage",
      "tabCapture"
    ],
-  "content_security_policy": "default-src 'self' https://fonts.gstatic.com https://*.firebaseio.com; script-src 'self' https://*.firebaseio.com http://localhost:3003 http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src ws://fathomless-spire-79427.herokuapp.com http://fathomless-spire-79427.herokuapp.com wss://*.firebaseio.com https://*.firebaseio.com http://localhost:3003 ws://localhost:3003 http://localhost:3000 https://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' https://pp.vk.me data:;"
+  "content_security_policy": "default-src 'self' https://fonts.gstatic.com https://*.firebaseio.com; script-src 'self' https://*.firebaseio.com 'unsafe-eval'; connect-src ws://fathomless-spire-79427.herokuapp.com http://fathomless-spire-79427.herokuapp.com wss://*.firebaseio.com https://*.firebaseio.com; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' https://pp.vk.me data:;"
 }

@@ -3,7 +3,6 @@ import uuid from 'uuid-js';
 import handshake from './handshake';
 import socket from './socket';
 import Events from '../../../app/lib/EventBus';
-import AudioPlayer from './AudioPlayer';
 
 const config = {
   apiKey: SETTINGS.firebase.key,
@@ -80,7 +79,7 @@ class Room {
 
     const room = this.db.ref(`room/${id}`);
     room.child('users').push(id)
-    .then(() => handshake({ room }));
+    .then(() => handshake({ room, owner: true }));
   }
 }
 
