@@ -1,13 +1,15 @@
 import Peer from 'simple-peer';
 import socket from './socket';
 import AudioPlayer from './AudioPlayer';
+import config from './config';
 
 let peers = {};
 
 const createPeer = (id, initiator, stream) => {
   peers[id] = new Peer({
     initiator: initiator === id,
-    stream
+    stream,
+    config
   });
   return peers[id];
 };

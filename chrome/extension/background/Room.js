@@ -125,6 +125,7 @@ class Room {
 
     const room = this.db.ref(`room/${id}`);
     handshake({ room });
+    this.findRooms();
   }
 }
 
