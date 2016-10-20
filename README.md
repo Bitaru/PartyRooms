@@ -1,45 +1,44 @@
 # PartyRooms p2p
 
-> Listen and share your favorites music with friends around the world.
+> Chrome extension for sharing and listening sound from tab
 
-## Features
+## What's inside:
 
- - Simple [React](https://github.com/facebook/react)/[Redux](https://github.com/rackt/redux) examples of Chrome Extension Window & Popup & Inject pages
- - Hot reloading React/Redux (Using [Webpack](https://github.com/webpack/webpack) and [React Transform](https://github.com/gaearon/react-transform))
- - Write code with ES2015+ syntax (Using [Babel](https://github.com/babel/babel))
- - E2E tests of Window & Popup & Inject pages (Using [Chrome Driver](https://www.npmjs.com/package/chromedriver), [Selenium Webdriver](https://www.npmjs.com/package/selenium-webdriver))
+ - [Simple-Peer](https://github.com/feross/simple-peer) - for WebRTC connection
+ - [Socket.io](http://socket.io/) - Transfer signals between clients
+ - [Firebase](https://firebase.google.com) - Just coz this is MVP
+ - [React](https://github.com/facebook/react) / [Redux](https://github.com/reactjs/redux) / [Redux-persist](https://github.com/rt2zz/redux-persist) - UI in popup window
 
-# Install dependencies
-$ npm install
+
+> - Based on [React Chrome Extension Boilerplate](https://github.com/jhen0409/react-chrome-extension-boilerplate)
+> - Many thanks to [Peer Calls](https://github.com/jeremija/peer-calls) for insight
+
+### Install dependencies
+```
+npm install
 ```
 
-## Development
+### Development
 
-* Run script
-```bash
+```
 # build files to './dev'
-# start webpack development server
 $ npm run dev
+
+# run server with sockets localy
+$ node sockets.js
 ```
-* If you're developing Inject page, please allow `https://localhost:3000` connections. (Because `injectpage` injected GitHub (https) pages, so webpack server procotol must be https.)
-* [Load unpacked extensions](https://developer.chrome.com/extensions/getstarted#unpacked) with `./dev` folder.
 
-#### React/Redux hot reload
+> If you're developing Inject page, please allow `https://localhost:3000` connections. (Because `injectpage` injected GitHub (https) pages, so webpack server procotol must be https.)
+> [Load unpacked extensions](https://developer.chrome.com/extensions/getstarted#unpacked) with `./dev` folder.
 
-This boilerplate uses `Webpack` and `react-transform`, and use `Redux`. You can hot reload by editing related files of Popup & Window & Inject page.
-
-#### Using Redux DevTools Extension
-
-You can use [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) on development mode.
-
-## Build
+### Build
 
 ```bash
 # build files to './build'
 $ npm run build
 ```
 
-## Compress
+### Compress
 
 ```bash
 # compress build folder to {manifest.name}.zip and crx
@@ -47,33 +46,6 @@ $ npm run build
 $ npm run compress -- [options]
 ```
 
-#### Options
-
-If you want to build `crx` file (auto update), please provide options, and add `update.xml` file url in [manifest.json](https://developer.chrome.com/extensions/autoupdate#update_url manifest.json).
-
-* --app-id: your extension id (can be get it when you first release extension)
-* --key: your private key path (default: './key.pem')
-  you can use `npm run compress-keygen` to generate private key `./key.pem`
-* --codebase: your `crx` file url
-
-See [autoupdate guide](https://developer.chrome.com/extensions/autoupdate) for more information.
-
-## Test
-
-* `test/app`: React components, Redux actions & reducers tests
-* `test/e2e`: E2E tests (use [chromedriver](https://www.npmjs.com/package/chromedriver), [selenium-webdriver](https://www.npmjs.com/package/selenium-webdriver))
-
-```bash
-# lint
-$ npm run lint
-# test/app
-$ npm test
-$ npm test -- --watch  # watch files
-# test/e2e
-$ npm run build
-$ npm run test-e2e
-```
-
-## LICENSE
+### LICENSE
 
 [MIT](LICENSE)

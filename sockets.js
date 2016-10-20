@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
     });
 
     // Add user to list
-    DB.ref(`room/${socket.room}/users`).set({ [socket.id]: true })
+    DB.ref(`room/${room}/users`).set({ [socket.id]: true })
   });
 
   socket.on('close', userId => {

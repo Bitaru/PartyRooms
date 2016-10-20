@@ -100,6 +100,7 @@ class Room {
     socket.emit('close', socket.id);
     this.id = void 0;
     Events.emit('update', { room: 0, status: 0 });
+    this.findRooms();
   }
 
   connect() {
