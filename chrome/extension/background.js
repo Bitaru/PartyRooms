@@ -11,4 +11,5 @@ Events.on('joinRoom', props => {
   Room.join(props);
 });
 
-window.listen = Room.join;
+window.listen = (id) => Room.join({ id });
+window.stop = () => Room.disconect();

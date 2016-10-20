@@ -12,36 +12,35 @@ const createPeer = (id, initiator, stream) => {
   return peers[id];
 };
 
-export function create({ user, stream, initiator }) {
-  console.log(`~~> Connecting to peer ${user.id}`);
+export function create({ userId, stream, initiator }) {
+  console.log('~~> PREPARE CONNECTION: ', userId);
 
-  if (peers[user.id]) {
-    console.warn(`!~~> Peer ${user.id} already exist, removing from list`);
-    destroy(user.id);
+  if (peers[userId]) {
+    console.warn('!~~> REMOVE PEER:', userId);
+    destroy(userId);
   }
 
-  const peer = createPeer(user.id, initiator, stream);
+  const peer = createPeer(userId, initiator, stream);
 
   peer.on('signal', signal => {
-    console.log(`${user.id} sending signal!!!`, signal);
-    socket.emit('signal', { userId: user.id, signal });
+    console.log(`--> ${userId}`, signal);
+    socket.emit('signal', { userId, signal });
   })
   .on('stream', s => {
-    console.log('I"ve got a stream', s);
+    console.log('~~> STREAM', s);
     AudioPlayer.setStream(s);
   })
   .once('connect', () => {
-    console.log(`^___^ Peer ${user.id} is connected now!`);
+    console.log('~~> ESTABLISHED CONNECTION WITH: ', userId);
     AudioPlayer.play();
   })
   .once('error', error => {
-    console.warn('!~~> A peer connection error occurred', error);
-    destroy(user.id);
+    console.warn('!~~> ERROR', userId, error);
+    destroy(userId);
   })
   .once('close', () => {
-    console.warn(`X_X Peer ${user.id} has close connection`);
-    socket.emit('close', user.id)
-    if (peers[user.id] === peer) delete peers[user.id];
+    console.warn('!~~> CLOSE CONNECTION', userId);
+    if (peers[userId] === peer) delete peers[userId];
   });
 }
 
@@ -62,6 +61,7 @@ export function clear() {
 }
 
 export function destroy(userId) {
+  console.warn('!~~> REMOVE PEER:', userId);
   const peer = peers[userId];
   peer.destroy();
   delete peers[userId];

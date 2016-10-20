@@ -4,6 +4,7 @@ import handshake from './handshake';
 import socket from './socket';
 import Events from '../../../app/lib/EventBus';
 import lunr from 'lunr';
+import { get as getPeerById } from './peers';
 
 const config = {
   apiKey: SETTINGS.firebase.key,
@@ -11,6 +12,7 @@ const config = {
 };
 
 const ME = uuid.create(1).toString();
+console.log(ME);
 
 class Room {
   db = void 0;
@@ -94,13 +96,10 @@ class Room {
 
   disconect() {
     if (!this.id) return;
-    if (this.id === ME) {
-      this.roomsRef.child(ME).remove();
-      socket.emit('close', this.id);
-    }
+    if (this.isOwner) this.roomsRef.child(ME).remove();
+    socket.emit('close', socket.id);
     this.id = void 0;
     Events.emit('update', { room: 0, status: 0 });
-    this.findRooms();
   }
 
   connect() {
@@ -124,8 +123,7 @@ class Room {
     Events.emit('update', { room: this.id, status: 'listening' });
 
     const room = this.db.ref(`room/${id}`);
-    room.child('users').push(id)
-    .then(() => handshake({ room }));
+    handshake({ room });
   }
 }
 
