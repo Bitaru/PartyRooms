@@ -1,3 +1,4 @@
+import React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 
 import 'normalize.css';

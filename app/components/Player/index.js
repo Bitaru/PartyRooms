@@ -1,3 +1,5 @@
+import React from 'react';
+
 import styles from './styles.css';
 import cx from 'classnames';
 import Rheostat from 'rheostat';

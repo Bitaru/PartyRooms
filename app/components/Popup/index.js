@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { compose, withHandlers } from 'recompose';
 import cx from 'classnames';
 import styles from './styles.css';

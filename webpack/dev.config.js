@@ -33,9 +33,6 @@ const baseDevConfig = () => ({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.IgnorePlugin(/[^/]+\/[\S]+.prod$/),
-    new webpack.ProvidePlugin({
-      React: 'react'
-    }),
     new webpack.DefinePlugin({
       __HOST__: `'${host}'`,
       __PORT__: port,

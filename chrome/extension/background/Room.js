@@ -1,10 +1,10 @@
 import Firebase from 'firebase';
 import uuid from 'uuid-js';
+import lunr from 'lunr';
+
 import handshake from './handshake';
 import socket from './socket';
 import Events from '../../../app/lib/EventBus';
-import lunr from 'lunr';
-import { get as getPeerById } from './peers';
 
 const config = {
   apiKey: SETTINGS.firebase.key,

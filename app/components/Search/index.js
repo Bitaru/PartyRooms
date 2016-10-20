@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { compose, withState, withHandlers } from 'recompose';
 import styles from './styles.css';
 import SearchIcon from '../icons/Search';

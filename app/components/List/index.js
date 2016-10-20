@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { compose, withHandlers, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import cx from 'classnames';

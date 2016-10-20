@@ -18,9 +18,6 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.IgnorePlugin(/[^/]+\/[\S]+.dev$/),
     new webpack.optimize.DedupePlugin(),
-    new webpack.ProvidePlugin({
-      React: 'react'
-    }),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       compressor: {
