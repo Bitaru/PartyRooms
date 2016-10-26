@@ -1,8 +1,8 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "name": "PartyRooms",
   "manifest_version": 2,
-  "description": "Share and listen music from whorlwhide",
+  "description": "Listen and share music from your browser tabs directly",
   "browser_action": {
     "default_title": "React Chrome Extension Example",
     "default_popup": "popup.html"
@@ -32,5 +32,5 @@
     "storage",
      "tabCapture"
    ],
-  "content_security_policy": "default-src 'self' https://fonts.gstatic.com https://*.firebaseio.com; script-src 'self' https://*.firebaseio.com 'unsafe-eval'; connect-src ws://fathomless-spire-79427.herokuapp.com http://fathomless-spire-79427.herokuapp.com wss://*.firebaseio.com https://*.firebaseio.com; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' https://pp.vk.me data:;"
+  "content_security_policy": "default-src 'self' https://fonts.gstatic.com https://*.firebaseio.com; script-src 'self' https://cdn.ravenjs.com https://*.firebaseio.com http://localhost:3003 http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src https://sentry.io https://*sentry.io ws://*.herokuapp.com http://*.herokuapp.com wss://*.firebaseio.com https://*.firebaseio.com http://localhost:3003 ws://localhost:3003 http://localhost:3000 https://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' https://pp.vk.me data:;"
 }
